@@ -39,9 +39,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000f8ac  00000000  00000000  0002f6c9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008d376  00000000  00000000  0003ef75  2**0
+ 18 .debug_str    0008d377  00000000  00000000  0003ef75  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000cc2eb  2**0
+ 19 .comment      00000043  00000000  00000000  000cc2ec  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00003d30  00000000  00000000  000cc330  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -238,8 +238,8 @@ int main(void)
  800022e:	2200      	movs	r2, #0
  8000230:	701a      	strb	r2, [r3, #0]
 	  }
-	  uart_communiation_fsm();
- 8000232:	f000 f9cd 	bl	80005d0 <uart_communiation_fsm>
+	  uart_communication_fsm();
+ 8000232:	f000 f9cd 	bl	80005d0 <uart_communication_fsm>
 
 	  if (isTimerExpired(0))
  8000236:	2000      	movs	r0, #0
@@ -872,7 +872,6 @@ void command_parser_fsm()
  80005a0:	d1a0      	bne.n	80004e4 <command_parser_fsm+0x8>
 		}
 	}
-
 }
  80005a2:	bf00      	nop
  80005a4:	bf00      	nop
@@ -889,113 +888,113 @@ void command_parser_fsm()
  80005c8:	08004038 	.word	0x08004038
  80005cc:	2000015a 	.word	0x2000015a
 
-080005d0 <uart_communiation_fsm>:
+080005d0 <uart_communication_fsm>:
 
-void uart_communiation_fsm()
+void uart_communication_fsm()
 {
  80005d0:	b580      	push	{r7, lr}
  80005d2:	af00      	add	r7, sp, #0
 	switch(communication_state)
- 80005d4:	4b2e      	ldr	r3, [pc, #184]	@ (8000690 <uart_communiation_fsm+0xc0>)
+ 80005d4:	4b2e      	ldr	r3, [pc, #184]	@ (8000690 <uart_communication_fsm+0xc0>)
  80005d6:	781b      	ldrb	r3, [r3, #0]
  80005d8:	2b00      	cmp	r3, #0
- 80005da:	d002      	beq.n	80005e2 <uart_communiation_fsm+0x12>
+ 80005da:	d002      	beq.n	80005e2 <uart_communication_fsm+0x12>
  80005dc:	2b01      	cmp	r3, #1
- 80005de:	d028      	beq.n	8000632 <uart_communiation_fsm+0x62>
+ 80005de:	d028      	beq.n	8000632 <uart_communication_fsm+0x62>
 				setTimer(1, 3000);	// Waiting 3s again
 			}
 		}
 		break;
 	}
 }
- 80005e0:	e053      	b.n	800068a <uart_communiation_fsm+0xba>
+ 80005e0:	e053      	b.n	800068a <uart_communication_fsm+0xba>
 		if (command_flag == 1)
- 80005e2:	4b2c      	ldr	r3, [pc, #176]	@ (8000694 <uart_communiation_fsm+0xc4>)
+ 80005e2:	4b2c      	ldr	r3, [pc, #176]	@ (8000694 <uart_communication_fsm+0xc4>)
  80005e4:	781b      	ldrb	r3, [r3, #0]
  80005e6:	2b01      	cmp	r3, #1
- 80005e8:	d14c      	bne.n	8000684 <uart_communiation_fsm+0xb4>
+ 80005e8:	d14c      	bne.n	8000684 <uart_communication_fsm+0xb4>
 			command_flag = 0;	// reset
- 80005ea:	4b2a      	ldr	r3, [pc, #168]	@ (8000694 <uart_communiation_fsm+0xc4>)
+ 80005ea:	4b2a      	ldr	r3, [pc, #168]	@ (8000694 <uart_communication_fsm+0xc4>)
  80005ec:	2200      	movs	r2, #0
  80005ee:	701a      	strb	r2, [r3, #0]
 			ADC_value = HAL_ADC_GetValue(&hadc1);
- 80005f0:	4829      	ldr	r0, [pc, #164]	@ (8000698 <uart_communiation_fsm+0xc8>)
+ 80005f0:	4829      	ldr	r0, [pc, #164]	@ (8000698 <uart_communication_fsm+0xc8>)
  80005f2:	f000 fc49 	bl	8000e88 <HAL_ADC_GetValue>
  80005f6:	4603      	mov	r3, r0
- 80005f8:	4a28      	ldr	r2, [pc, #160]	@ (800069c <uart_communiation_fsm+0xcc>)
+ 80005f8:	4a28      	ldr	r2, [pc, #160]	@ (800069c <uart_communication_fsm+0xcc>)
  80005fa:	6013      	str	r3, [r2, #0]
 			sprintf(str, "!ADC=%d#", (int)ADC_value);
- 80005fc:	4b27      	ldr	r3, [pc, #156]	@ (800069c <uart_communiation_fsm+0xcc>)
+ 80005fc:	4b27      	ldr	r3, [pc, #156]	@ (800069c <uart_communication_fsm+0xcc>)
  80005fe:	681b      	ldr	r3, [r3, #0]
  8000600:	461a      	mov	r2, r3
- 8000602:	4927      	ldr	r1, [pc, #156]	@ (80006a0 <uart_communiation_fsm+0xd0>)
- 8000604:	4827      	ldr	r0, [pc, #156]	@ (80006a4 <uart_communiation_fsm+0xd4>)
+ 8000602:	4927      	ldr	r1, [pc, #156]	@ (80006a0 <uart_communication_fsm+0xd0>)
+ 8000604:	4827      	ldr	r0, [pc, #156]	@ (80006a4 <uart_communication_fsm+0xd4>)
  8000606:	f003 f859 	bl	80036bc <siprintf>
 			HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), 1000);
- 800060a:	4826      	ldr	r0, [pc, #152]	@ (80006a4 <uart_communiation_fsm+0xd4>)
+ 800060a:	4826      	ldr	r0, [pc, #152]	@ (80006a4 <uart_communication_fsm+0xd4>)
  800060c:	f7ff fda8 	bl	8000160 <strlen>
  8000610:	4603      	mov	r3, r0
  8000612:	b29a      	uxth	r2, r3
  8000614:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
- 8000618:	4922      	ldr	r1, [pc, #136]	@ (80006a4 <uart_communiation_fsm+0xd4>)
- 800061a:	4823      	ldr	r0, [pc, #140]	@ (80006a8 <uart_communiation_fsm+0xd8>)
+ 8000618:	4922      	ldr	r1, [pc, #136]	@ (80006a4 <uart_communication_fsm+0xd4>)
+ 800061a:	4823      	ldr	r0, [pc, #140]	@ (80006a8 <uart_communication_fsm+0xd8>)
  800061c:	f002 fa34 	bl	8002a88 <HAL_UART_Transmit>
 			setTimer(1, 3000);	// Waiting 3s
  8000620:	f640 31b8 	movw	r1, #3000	@ 0xbb8
  8000624:	2001      	movs	r0, #1
  8000626:	f000 f847 	bl	80006b8 <setTimer>
 			communication_state = COMMUNICATION_OK;
- 800062a:	4b19      	ldr	r3, [pc, #100]	@ (8000690 <uart_communiation_fsm+0xc0>)
+ 800062a:	4b19      	ldr	r3, [pc, #100]	@ (8000690 <uart_communication_fsm+0xc0>)
  800062c:	2201      	movs	r2, #1
  800062e:	701a      	strb	r2, [r3, #0]
 		break;
- 8000630:	e028      	b.n	8000684 <uart_communiation_fsm+0xb4>
+ 8000630:	e028      	b.n	8000684 <uart_communication_fsm+0xb4>
 		if (command_flag == 2)
- 8000632:	4b18      	ldr	r3, [pc, #96]	@ (8000694 <uart_communiation_fsm+0xc4>)
+ 8000632:	4b18      	ldr	r3, [pc, #96]	@ (8000694 <uart_communication_fsm+0xc4>)
  8000634:	781b      	ldrb	r3, [r3, #0]
  8000636:	2b02      	cmp	r3, #2
- 8000638:	d106      	bne.n	8000648 <uart_communiation_fsm+0x78>
+ 8000638:	d106      	bne.n	8000648 <uart_communication_fsm+0x78>
 			command_flag = 0;	// reset
- 800063a:	4b16      	ldr	r3, [pc, #88]	@ (8000694 <uart_communiation_fsm+0xc4>)
+ 800063a:	4b16      	ldr	r3, [pc, #88]	@ (8000694 <uart_communication_fsm+0xc4>)
  800063c:	2200      	movs	r2, #0
  800063e:	701a      	strb	r2, [r3, #0]
 			communication_state = COMMUNICATION_RST;
- 8000640:	4b13      	ldr	r3, [pc, #76]	@ (8000690 <uart_communiation_fsm+0xc0>)
+ 8000640:	4b13      	ldr	r3, [pc, #76]	@ (8000690 <uart_communication_fsm+0xc0>)
  8000642:	2200      	movs	r2, #0
  8000644:	701a      	strb	r2, [r3, #0]
 		break;
- 8000646:	e01f      	b.n	8000688 <uart_communiation_fsm+0xb8>
+ 8000646:	e01f      	b.n	8000688 <uart_communication_fsm+0xb8>
 			if (isTimerExpired(1))
  8000648:	2001      	movs	r0, #1
  800064a:	f000 f855 	bl	80006f8 <isTimerExpired>
  800064e:	4603      	mov	r3, r0
  8000650:	2b00      	cmp	r3, #0
- 8000652:	d019      	beq.n	8000688 <uart_communiation_fsm+0xb8>
+ 8000652:	d019      	beq.n	8000688 <uart_communication_fsm+0xb8>
 				sprintf(str, "!ADC=%d#", (int)ADC_value);
- 8000654:	4b11      	ldr	r3, [pc, #68]	@ (800069c <uart_communiation_fsm+0xcc>)
+ 8000654:	4b11      	ldr	r3, [pc, #68]	@ (800069c <uart_communication_fsm+0xcc>)
  8000656:	681b      	ldr	r3, [r3, #0]
  8000658:	461a      	mov	r2, r3
- 800065a:	4911      	ldr	r1, [pc, #68]	@ (80006a0 <uart_communiation_fsm+0xd0>)
- 800065c:	4811      	ldr	r0, [pc, #68]	@ (80006a4 <uart_communiation_fsm+0xd4>)
+ 800065a:	4911      	ldr	r1, [pc, #68]	@ (80006a0 <uart_communication_fsm+0xd0>)
+ 800065c:	4811      	ldr	r0, [pc, #68]	@ (80006a4 <uart_communication_fsm+0xd4>)
  800065e:	f003 f82d 	bl	80036bc <siprintf>
 				HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), 1000);
- 8000662:	4810      	ldr	r0, [pc, #64]	@ (80006a4 <uart_communiation_fsm+0xd4>)
+ 8000662:	4810      	ldr	r0, [pc, #64]	@ (80006a4 <uart_communication_fsm+0xd4>)
  8000664:	f7ff fd7c 	bl	8000160 <strlen>
  8000668:	4603      	mov	r3, r0
  800066a:	b29a      	uxth	r2, r3
  800066c:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
- 8000670:	490c      	ldr	r1, [pc, #48]	@ (80006a4 <uart_communiation_fsm+0xd4>)
- 8000672:	480d      	ldr	r0, [pc, #52]	@ (80006a8 <uart_communiation_fsm+0xd8>)
+ 8000670:	490c      	ldr	r1, [pc, #48]	@ (80006a4 <uart_communication_fsm+0xd4>)
+ 8000672:	480d      	ldr	r0, [pc, #52]	@ (80006a8 <uart_communication_fsm+0xd8>)
  8000674:	f002 fa08 	bl	8002a88 <HAL_UART_Transmit>
 				setTimer(1, 3000);	// Waiting 3s again
  8000678:	f640 31b8 	movw	r1, #3000	@ 0xbb8
  800067c:	2001      	movs	r0, #1
  800067e:	f000 f81b 	bl	80006b8 <setTimer>
 		break;
- 8000682:	e001      	b.n	8000688 <uart_communiation_fsm+0xb8>
+ 8000682:	e001      	b.n	8000688 <uart_communication_fsm+0xb8>
 		break;
  8000684:	bf00      	nop
- 8000686:	e000      	b.n	800068a <uart_communiation_fsm+0xba>
+ 8000686:	e000      	b.n	800068a <uart_communication_fsm+0xba>
 		break;
  8000688:	bf00      	nop
 }

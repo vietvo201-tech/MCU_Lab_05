@@ -59,7 +59,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void command_parser_fsm(void);
-void uart_communiation_fsm(void);
+void uart_communication_fsm(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -85,7 +85,7 @@ uint8_t command_index = 0;
 uint8_t read_index = 0;
 uint8_t command_flag = 0;	//0:nothing, 1:RST, 2:OK
 
-uint32_t ADC_value = 0;
+volatile uint32_t ADC_value = 0;
 char str[MAX_BUFFER_SIZE];
 
 enum
@@ -165,7 +165,7 @@ int main(void)
 		  command_parser_fsm();
 		  buffer_flag = 0;
 	  }
-	  uart_communiation_fsm();
+	  uart_communication_fsm();
 
 	  if (isTimerExpired(0))
 	  {
@@ -419,10 +419,9 @@ void command_parser_fsm()
 			break;
 		}
 	}
-
 }
 
-void uart_communiation_fsm()
+void uart_communication_fsm()
 {
 	switch(communication_state)
 	{
